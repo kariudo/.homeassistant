@@ -1,0 +1,14 @@
+bright:
+  alias: Bright
+  sequence:
+    - service: light.hue_activate_scene
+      data:
+        group_name: "Living room"
+        scene_name: "Bright"
+relax:
+  alias: Relax
+  sequence:
+    - service: light.hue_activate_scene
+      data:
+        group_name: "Living room"
+        scene_name: "Relax"

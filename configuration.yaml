@@ -1,0 +1,145 @@
+homeassistant:
+  name: Home
+  latitude: !secret home_lat
+  longitude: !secret home_long
+  elevation: 59
+  unit_system: imperial
+  time_zone: America/New_York
+  customize: !include customize.yaml
+
+input_select:
+  livingroomharmony:
+    name: Harmony Activity
+    options:
+     - PowerOff
+     - Watch TV
+     - Watch Nexus Player
+     - Watch Plex
+     - Listen to Music
+     - Play a Game
+    initial: PowerOff
+    icon: mdi:remote
+  scene_livingroom:
+    name: Living Room Scene
+    options:
+      - Select
+      - Concentrate
+      - Energize
+      - Reading
+      - Relax
+      - 'OFF'
+    initial: 'Select'
+
+# Enables the frontend
+frontend:
+
+http:
+  api_password: !secret api_pass
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Sensors
+sensor:
+  - platform: plex
+    host: 192.168.1.2
+  - platform: wunderground
+    api_key: 4911c0a8b3e92c42
+    monitored_conditions:
+      - temp_f
+      - weather
+
+switch:
+  - platform: template
+    switches:
+      tv:
+        value_template: "{% if is_state('remote.living_room', 'on') %}on{% else %}off{% endif %}"
+        turn_on:
+          service: remote.turn_on
+          entity_id: remote.living_room
+          data:
+            activity: Watch Plex
+        turn_off:
+          service: remote.turn_off
+          entity_id: remote.living_room
+
+# Text to speech
+tts:
+  platform: google
+
+mqtt:
+  broker: m13.cloudmqtt.com
+  port: !secret mqtt_port
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+script: !include scripts.yaml
+    
+emulated_hue:
+  type: google_home
+  listen_port: 8080
+  expose_by_default: true
+  exposed_domains:
+    - switch
+    - light
+
+media_player:
+  - platform: cast
+  - platform: plex
+
+camera:
+  - platform: mjpeg
+    name: Bedroom
+    mjpeg_url: http://192.168.1.117/video/mjpg.cgi
+    username: admin
+    password: !secret bedroom_camera_password
+  - platform: mjpeg
+    name: Living Room
+    mjpeg_url: http://localhost:8081
+
+device_tracker:
+  - platform: owntracks
+  
+zone:
+  name: Square 9
+  latitude: 41.306373
+  longitude: -72.925486
+  radius: 200
+  icon: mdi:domain
+
+zone 2:
+  name: BMS
+  latitude: 41.479767
+  longitude: -72.75955
+  radius: 200
+  icon: mdi:flask
+
+remote:
+  - platform: harmony
+    name: Living Room
+    host: 192.168.1.182
+
+group: !include groups.yaml
+      
+
+device_sun_light_trigger:
+  light_group: group.living_room_lights
+  light_profile: relax
+  device_group: group.all_devices
+
+automation: !include automation.yaml

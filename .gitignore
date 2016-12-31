@@ -1,0 +1,9 @@
+secrets.yaml
+tts/
+deps/
+*.log
+*.db
+.HA_VERSION
+.uuid
+plex.conf
+phue.conf

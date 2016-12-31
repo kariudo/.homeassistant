@@ -1,0 +1,15 @@
+hunter_angler:
+  hide_if_away: false
+  mac:
+  name: Hunter
+  picture:
+  track: true
+  vendor:
+
+rhiannon_m8:
+  hide_if_away: false
+  mac:
+  name: Rhiannon
+  picture:
+  track: true
+  vendor:

@@ -1,0 +1,17 @@
+sensor.pws_temp_f:
+  friendly_name: Outside
+sensor.pws_weather:
+  friendly_name: Weather 
+switch.office_lamp:
+  icon: mdi:lamp
+switch.tv:
+  friendly_name: TV
+  icon: mdi:television
+remote.living_room:
+  hidden: true
+light.living_room:
+  hidden: true
+  emulated_hue: false
+light.bedroom:
+  emulated_hue: false
+  hidden: true

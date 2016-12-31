@@ -1,0 +1,42 @@
+## Views
+Living Room:
+  view: yes
+  entities:
+    - group.living_room_lights
+    - switch.tv
+    - media_player.nexus_player
+    - input_select.livingroomharmony
+Bedroom:
+  view: yes
+  entities:
+    - group.bedroom_lights
+    - camera.mjpeg_camera
+Office:
+  view: yes
+  entities:
+    - group.office_lights
+## Groups
+Living Room Lights:
+  entities:
+    - light.couch_left
+    - light.couch_right
+Bedroom Lights:
+  entities:
+    - light.bedroom_dresser
+Office Lights:
+  entities:
+    - switch.office_lamp
+Lighting Scenes:
+  control: hidden
+  entities:
+    - script.bright
+    - script.relax
+    - input_select.scene_livingroom
+Entertainment:
+  control: hidden
+  entities:
+    - switch.tv
+    - input_select.livingroomharmony
+Appliances:
+  entities:
+    - switch.coffee_maker

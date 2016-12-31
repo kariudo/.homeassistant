@@ -1,0 +1,47 @@
+- alias: Turn TV on/off
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: input_boolean.tv
+  action:
+    service: remote.send_command
+    data_template:
+      command: "{{ 'PowerOff' if trigger.to_state.state == 'off' else 'PowerOn' }}"
+      device: 31747892
+      entity_id: remote.living_room
+- alias: "Start Harmony activity from input_select"
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: input_select.livingroomharmony
+  action:
+  - service: remote.turn_on
+    data_template:
+      entity_id: remote.living_room
+      activity: "{{trigger.to_state.state}}"
+- alias: "Update HA if Harmony activity changes"
+  hide_entity: true
+  trigger:
+    platform: state
+    entity_id: sensor.living_room
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.livingroomharmony
+        option: "{{trigger.to_state.state}}"
+- alias: Update HA after startup
+  hide_entity: true
+  trigger:
+    platform: event
+    event_type: homeassistant_start
+  action:
+    - delay:
+        minutes: 1
+    - service_template: "homeassistant.turn_{{ 'on' if states.media_player.panasonic_viera_tv.state == 'on' else 'off' }}"
+      entity_id:
+        - input_boolean.tv
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.livingroomharmony
+        option: "{{states.sensor.living_room.state}}"
+
