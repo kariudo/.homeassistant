@@ -110,7 +110,7 @@ camera:
     password: !secret bedroom_camera_password
   - platform: mjpeg
     name: Living Room
-    mjpeg_url: http://localhost:8081
+    mjpeg_url: http://127.0.0.1:8081/
 
 device_tracker:
   - platform: owntracks

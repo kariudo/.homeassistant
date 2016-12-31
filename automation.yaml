@@ -23,7 +23,7 @@
   hide_entity: true
   trigger:
     platform: state
-    entity_id: sensor.living_room
+    entity_id: remote.living_room
   action:
     - service: input_select.select_option
       data_template:
@@ -37,11 +37,11 @@
   action:
     - delay:
         minutes: 1
-    - service_template: "homeassistant.turn_{{ 'on' if states.media_player.panasonic_viera_tv.state == 'on' else 'off' }}"
+    - service_template: "homeassistant.turn_{{ 'on' if states.remote.living_room.state == 'on' else 'off' }}"
       entity_id:
         - input_boolean.tv
     - service: input_select.select_option
       data_template:
         entity_id: input_select.livingroomharmony
-        option: "{{states.sensor.living_room.state}}"
+        option: "{{states.remote.living_room.attributes.current_activity}}"
 
