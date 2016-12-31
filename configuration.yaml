@@ -59,7 +59,7 @@ sensor:
   - platform: plex
     host: 192.168.1.2
   - platform: wunderground
-    api_key: 4911c0a8b3e92c42
+    api_key: !secret wunder_key
     monitored_conditions:
       - temp_f
       - weather
