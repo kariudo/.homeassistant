@@ -129,6 +129,14 @@ zone 2:
   radius: 200
   icon: mdi:flask
 
+# Override home zone
+zone 3:
+  name: Home
+  latitude: !secret home_lat
+  longitude: !secret home_long
+  radius: 200
+  icon: mdi:home
+
 remote:
   - platform: harmony
     name: Living Room
