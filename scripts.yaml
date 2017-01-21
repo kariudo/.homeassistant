@@ -12,3 +12,19 @@ relax:
       data:
         group_name: "Living room"
         scene_name: "Relax"
+night:
+  alias: Night
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.couch_right
+        rgb_color: [255,136,27]
+        brightness: 120
+    - service: light.turn_on
+      data:
+        entity_id: light.bedroom_dresser
+        rgb_color: [255,0,0]
+        brightness: 120
+    - service: light.turn_off
+      data:
+        entity_id: light.couch_left

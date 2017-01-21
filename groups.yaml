@@ -32,6 +32,7 @@ Lighting Scenes:
   entities:
     - script.bright
     - script.relax
+    - script.night
     - input_select.scene_livingroom
 Entertainment:
   control: hidden
