@@ -28,3 +28,31 @@ night:
     - service: light.turn_off
       data:
         entity_id: light.couch_left
+rain:
+  alias: Rain
+  sequence:
+    - service: media_player.play_media
+      entity_id: media_player.bedroom_speakers
+      data:
+        media_content_id: http://192.168.1.185:8888/rain.m4a
+        media_content_type: audio/m4a
+    - delay: 00:15:00
+    - service: script.turn_on
+      data:
+        entity_id: script.rain_loop
+rain_loop:
+  alias: Rain Loop
+  sequence:
+    - delay: 00:19:23
+    - service: script.turn_on
+      data:
+        entity_id: script.rain
+rain_stop:
+  alias: Rain Stop
+  sequence:
+    - service: script.turn_off
+      data:
+        entity_id: script.rain
+    - service: script.turn_off
+      data:
+        entity_id: script.rain_loop
