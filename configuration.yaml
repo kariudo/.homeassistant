@@ -158,7 +158,7 @@ zone 2:
   radius: 200
   icon: mdi:flask
 
-zone 3:
+zone 4:
   name: Roast Meat Hill Road
   latitude: 41.382637
   longitude: -72.551857
