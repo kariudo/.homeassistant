@@ -9,6 +9,11 @@ homeassistant:
 
 config:
 
+notify:
+  - platform: pushbullet
+    name: hunter
+    api_key: !secret pushbullet_api_key
+
 recorder:
   db_url: mysql://hass:hasspi@localhost/hass
 

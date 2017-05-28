@@ -1,4 +1,5 @@
-- alias: Turn TV on/off
+- id: turn_tv_on_off
+  alias: Turn TV on/off
   hide_entity: true
   trigger:
     platform: state
@@ -6,10 +7,12 @@
   action:
     service: remote.send_command
     data_template:
-      command: "{{ 'PowerOff' if trigger.to_state.state == 'off' else 'PowerOn' }}"
+      command: '{{ ''PowerOff'' if trigger.to_state.state == ''off'' else ''PowerOn''
+        }}'
       device: 31747892
       entity_id: remote.living_room
-- alias: "Start Harmony activity from input_select"
+- id: start_harmony_from_input
+  alias: Start Harmony activity from input_select
   hide_entity: true
   trigger:
     platform: state
@@ -18,30 +21,60 @@
   - service: remote.turn_on
     data_template:
       entity_id: remote.living_room
-      activity: "{{trigger.to_state.state}}"
-- alias: "Update HA if Harmony activity changes"
+      activity: '{{ trigger.to_state.state }}'
+- id: update_ha_if_harmony_change
+  alias: Update HA if Harmony activity changes
   hide_entity: true
   trigger:
     platform: state
     entity_id: remote.living_room
   action:
-    - service: input_select.select_option
-      data_template:
-        entity_id: input_select.livingroomharmony
-        option: "{{trigger.to_state.state}}"
-- alias: Update HA after startup
+  - service: input_select.select_option
+    data_template:
+      entity_id: input_select.livingroomharmony
+      option: '{{ trigger.to_state.attributes.current_activity }}'
+- id: update_ha_on_start
+  alias: Update HA after startup
   hide_entity: true
   trigger:
     platform: event
     event_type: homeassistant_start
   action:
-    - delay:
-        minutes: 1
-    - service_template: "homeassistant.turn_{{ 'on' if states.remote.living_room.state == 'on' else 'off' }}"
-      entity_id:
-        - input_boolean.tv
-    - service: input_select.select_option
-      data_template:
-        entity_id: input_select.livingroomharmony
-        option: "{{states.remote.living_room.attributes.current_activity}}"
-
+  - delay:
+      minutes: 1
+  - service_template: homeassistant.turn_{{ 'on' if states.remote.living_room.state
+      == 'on' else 'off' }}
+    entity_id:
+    - input_boolean.tv
+  - service: input_select.select_option
+    data_template:
+      entity_id: input_select.livingroomharmony
+      option: '{{states.remote.living_room.attributes.current_activity}}'
+- action:
+  - alias: Turn off all lights
+    data:
+      entity_id: group.all_lights
+    service: light.turn_off
+  - alias: Turn off speakers
+    data:
+      entity_id: switch.bedroom_speaker
+    service: switch.turn_off
+  - alias: Stop the rain
+    data:
+      entity_id: group.rain
+    service: script.turn_off
+  - alias: Turn off all chromecasts
+    data:
+      entity_id: group.chromecasts
+    service: media_player.turn_off
+  - alias: Turn off the TV
+    data:
+      entity_id: group.entertainment
+    service: switch.turn_off
+  alias: Turn everything off when we leave
+  id: '1496000479901'
+  trigger:
+  - entity_id: group.all_devices
+    from: home
+    platform: state
+    to: not_home
