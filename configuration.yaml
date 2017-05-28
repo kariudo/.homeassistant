@@ -163,6 +163,7 @@ zone 4:
   latitude: 41.382637
   longitude: -72.551857
   radius: 200
+  icon: mdi:duck
 
 # Override home zone
 zone 3:
