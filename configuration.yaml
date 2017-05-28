@@ -185,6 +185,6 @@ device_sun_light_trigger:
   light_profile: relax
   device_group: group.all_devices
 
-automation: !include automation.yaml
+automation: !include automations.yaml
 
 scene: !include scene.yaml
