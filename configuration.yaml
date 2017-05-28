@@ -11,7 +11,7 @@ config:
 
 notify:
   - platform: pushbullet
-    name: hunter
+    name: pushbullet
     api_key: !secret pushbullet_api_key
 
 recorder:
