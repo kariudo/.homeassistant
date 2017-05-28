@@ -34,16 +34,17 @@ rain:
     - service: media_player.play_media
       entity_id: media_player.bedroom_speakers
       data:
-        media_content_id: http://192.168.1.185:8888/rain.m4a
-        media_content_type: audio/m4a
-    - delay: 00:15:00
+        # media_content_id: http://192.168.1.185:8888/rain.m4a
+        media_content_id: http://192.168.1.185:8888/rain2.mp3
+        media_content_type: audio/mp3
+    - delay: 01:59:00
     - service: script.turn_on
       data:
         entity_id: script.rain_loop
 rain_loop:
   alias: Rain Loop
   sequence:
-    - delay: 00:19:23
+    - delay: 00:01:00
     - service: script.turn_on
       data:
         entity_id: script.rain

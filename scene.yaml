@@ -1,0 +1,10 @@
+- name: Bedtime
+  entities:
+    group.living_room: off
+    switch.office_lamp: off
+    switch.bedroom_speaker: on
+    script.rain: on
+    light.bedroom_dresser:
+      state: on
+      rgb_color: [255,0,0]
+      brightness: 127

@@ -3,6 +3,15 @@ hunter_angler:
   mac:
   name: Hunter
   picture:
+  gravatar: kariudo@gmail.com
+  track: true
+  vendor:
+
+rhiannon_bacon:
+  hide_if_away: false
+  mac:
+  name: Rhiannon
+  picture: /local/Rhiannon_192x192.png
   track: true
   vendor:
 
@@ -10,6 +19,6 @@ rhiannon_m8:
   hide_if_away: false
   mac:
   name: Rhiannon
-  picture:
-  track: true
+  picture: /local/Rhiannon_192x192.png
+  track: false
   vendor:

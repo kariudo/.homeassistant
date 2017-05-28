@@ -1,4 +1,21 @@
 ## Views
+default_view:
+  view: yes
+  entities:
+    - group.living_room_lights
+    - group.bedroom_lights
+    - group.office_lights
+    - group.entertainment
+    - group.appliances
+    - sun.sun
+    - sensor.pws_temp_f
+    - sensor.pws_weather
+    - sensor.plex
+    - sensor.fastcom_download
+    - device_tracker.hunter_angler
+    - device_tracker.rhiannon_bacon
+    - sensor.pi_hole
+    - scene.bedtime
 Living Room:
   view: yes
   entities:
@@ -12,10 +29,25 @@ Bedroom:
   entities:
     - group.bedroom_lights
     - camera.bedroom
+    - switch.bedroom_speaker
+    - group.rain
 Office:
   view: yes
   entities:
+    - switch.hachigami
     - group.office_lights
+    - group.reptile_climate
+Chromecasts:
+  view: yes
+  control: hidden
+  icon: mdi:cast
+  entities:
+    - media_player.apartment
+    - media_player.bedroom_speakers
+    - media_player.kitchen_home
+    - media_player.living_room
+    - media_player.living_room_speakers
+
 ## Groups
 Living Room Lights:
   entities:
@@ -41,4 +73,14 @@ Entertainment:
     - input_select.livingroomharmony
 Appliances:
   entities:
-    - switch.coffee_maker
+    - switch.snake_light
+Rain:
+  icon: mdi:weather-rainy
+  entities:
+    - script.rain
+    - script.rain_loop
+Reptile Climate:
+  icon: mdi:thermometer-lines
+  entities:
+    - sensor.lizard_1t
+    - sensor.lizard_1h

@@ -4,6 +4,8 @@ sensor.pws_weather:
   friendly_name: Weather 
 switch.office_lamp:
   icon: mdi:lamp
+switch.bedroom_speaker:
+  icon: mdi:speaker
 switch.tv:
   friendly_name: TV
   icon: mdi:television
@@ -15,3 +17,8 @@ light.living_room:
 light.bedroom:
   emulated_hue: false
   hidden: true
+sensor.lizard_1t:
+  friendly_name: 'Samantha (Temperature)'
+sensor.lizard_1h:
+  friendly_name: 'Samantha (Humidity)'
+  icon: mdi:water-percentr

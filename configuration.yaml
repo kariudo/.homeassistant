@@ -7,6 +7,21 @@ homeassistant:
   time_zone: America/New_York
   customize: !include customize.yaml
 
+config:
+
+recorder:
+  db_url: mysql://hass:hasspi@localhost/hass
+
+panel_iframe:
+  router:
+    title: Router
+    icon: mdi:router-wireless
+    url: https://www.linksyssmartwifi.com 
+  dakboard:
+    title: DAKboard
+    icon: mdi:gauge
+    url: https://dakboard.com
+
 input_select:
   livingroomharmony:
     name: Harmony Activity
@@ -63,8 +78,30 @@ sensor:
     monitored_conditions:
       - temp_f
       - weather
+#  - platform: pihole
+#    host: localhost:8888
+  - platform: fastdotcom
+  - platform: rest
+    resource: !secret lizard1_feed
+    value_template: '{{ value_json.feeds[0].field1 }}'
+    name: Lizard 1t
+    unit_of_measurement: '°F'
+  - platform: rest
+    resource: !secret lizard1_feed
+    value_template: '{{ value_json.feeds[0].field2 }}'
+    name: Lizard 1h
+    unit_of_measurement: '%'
+
+#shell_command:
+#  turn_off_HACHIGAMI: bash ~/.scripts/turnOffHachigami.sh
 
 switch:
+  - platform: wake_on_lan
+    mac_address: "C8-60-00-BF-99-35"
+    name: "Hachigami"
+    host: 192.168.1.2
+#    turn_off:
+#      service: shell_command.turn_off_HACHIGAMI
   - platform: template
     switches:
       tv:
@@ -89,14 +126,6 @@ mqtt:
   password: !secret mqtt_password
 
 script: !include scripts.yaml
-    
-emulated_hue:
-  type: google_home
-  listen_port: 8080
-  expose_by_default: true
-  exposed_domains:
-    - switch
-    - light
 
 media_player:
   - platform: cast
@@ -123,11 +152,17 @@ zone:
   icon: mdi:domain
 
 zone 2:
-  name: BMS
-  latitude: 41.479767
-  longitude: -72.75955
+  name: Charles River
+  latitude: 41.3054537
+  longitude: -72.9367557
   radius: 200
   icon: mdi:flask
+
+zone 3:
+  name: Roast Meat Hill Road
+  latitude: 41.382637
+  longitude: -72.551857
+  radius: 200
 
 # Override home zone
 zone 3:
@@ -143,7 +178,6 @@ remote:
     host: 192.168.1.182
 
 group: !include groups.yaml
-      
 
 device_sun_light_trigger:
   light_group: group.living_room_lights
@@ -151,3 +185,5 @@ device_sun_light_trigger:
   device_group: group.all_devices
 
 automation: !include automation.yaml
+
+scene: !include scene.yaml
