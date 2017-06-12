@@ -12,6 +12,7 @@ default_view:
     - sensor.pws_weather
     - sensor.plex
     - sensor.fastcom_download
+    - binary_sensor.octoprint_printing
     - device_tracker.hunter_angler
     - device_tracker.rhiannon_bacon
     - sensor.pi_hole
@@ -24,6 +25,8 @@ Living Room:
     - media_player.nexus_player
     - input_select.livingroomharmony
     - camera.living_room
+    - group.octoprint
+    - switch.3d_printer
 Bedroom:
   view: yes
   entities:
@@ -84,3 +87,11 @@ Reptile Climate:
   entities:
     - sensor.lizard_1t
     - sensor.lizard_1h
+OctoPrint:
+  icon: mdi:printer-3d
+  entities:
+    - sensor.octoprint_current_state
+    - sensor.octoprint_job_percentage
+    - sensor.octoprint_actual_bed_temp
+    - sensor.octoprint_actual_tool0_temp
+ 

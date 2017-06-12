@@ -9,6 +9,16 @@ homeassistant:
 
 config:
 
+octoprint:
+  host: 192.168.1.185:5000
+  api_key: !secret octoprint_api_key
+
+binary_sensor:
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error
+
 notify:
   - platform: pushbullet
     name: pushbullet
@@ -18,6 +28,10 @@ recorder:
   db_url: mysql://hass:hasspi@localhost/hass
 
 panel_iframe:
+  octoprint:
+    title: Octoprint
+    icon: mdi:printer-3d
+    url: http://home.kariudo.com:5000
   router:
     title: Router
     icon: mdi:router-wireless
@@ -83,8 +97,6 @@ sensor:
     monitored_conditions:
       - temp_f
       - weather
-#  - platform: pihole
-#    host: localhost:8888
   - platform: fastdotcom
   - platform: rest
     resource: !secret lizard1_feed
@@ -96,6 +108,19 @@ sensor:
     value_template: '{{ value_json.feeds[0].field2 }}'
     name: Lizard 1h
     unit_of_measurement: '%'
+  - platform: octoprint
+    name: OctoPrint
+    monitored_conditions:
+      - Current State
+      - Temperatures
+      - Job Percentage
+  - platform: template
+    sensors:
+      octoprint_bed_c:
+        entity_id:
+          - sensor.octoprint_actual_bed_temp
+        unit_of_measurement: '°C'
+        value_template: '{{ ((float(states("sensor.octoprint_actual_bed_temp")) - 32) * float(5/9)) | round(1) }}' 
 
 #shell_command:
 #  turn_off_HACHIGAMI: bash ~/.scripts/turnOffHachigami.sh
